@@ -1,24 +1,24 @@
-const { imageToWebp, videoToWebp, writeExifImg, writeExifVid, toAudio } = require('./fuctions2.js')
-const { default: makeWASocket, WAMessageStubType, relayMessage, areJidsSameUser, generateWAMessage, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, getContentType, makeInMemoryStore, jidDecode, getAggregateVotesInPollMessage, proto } = require("@whiskeysockets/baileys")
-const chalk = require('chalk')
-const fs = require('fs')
-const child_process = require('child_process')
-const ffmpeg = require('fluent-ffmpeg')
-const Crypto = require('crypto')
-const axios = require('axios')
-const pino = require('pino')
-const fetch = require('node-fetch')
-const moment = require('moment-timezone')
-const { sizeFormatter } = require('human-readable')
-const util = require('util')
-const jimp = require('jimp')
-const { defaultMaxListeners } = require('stream')
-const FileType = require("file-type")
-const path = require("path")
-const os = require('os') // Proporciona información del sistema operativo 
-const store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) })
-const PhoneNumber = require('awesome-phonenumber')
-const { en, es, id, ar } = require('./idiomas/total-idiomas.js') 
+let { imageToWebp, videoToWebp, writeExifImg, writeExifVid, toAudio } = require('./fuctions2.js')
+let { default: makeWASocket, WAMessageStubType, relayMessage, areJidsSameUser, generateWAMessage, useMultiFileAuthState, DisconnectReason, fetchLatestBaileysVersion, generateForwardMessageContent, prepareWAMessageMedia, generateWAMessageFromContent, generateMessageID, downloadContentFromMessage, getContentType, makeInMemoryStore, jidDecode, getAggregateVotesInPollMessage, proto } = require("@whiskeysockets/baileys")
+let chalk = require('chalk')
+let fs = require('fs')
+let child_process = require('child_process')
+let ffmpeg = require('fluent-ffmpeg')
+let Crypto = require('crypto')
+let axios = require('axios')
+let pino = require('pino')
+let fetch = require('node-fetch')
+let moment = require('moment-timezone')
+let { sizeFormatter } = require('human-readable')
+let util = require('util')
+let jimp = require('jimp')
+let { defaultMaxListeners } = require('stream')
+let FileType = require("file-type")
+let path = require("path")
+let os = require('os') // Proporciona información del sistema operativo 
+let store = makeInMemoryStore({ logger: pino().child({ level: 'silent', stream: 'store' }) })
+let PhoneNumber = require('awesome-phonenumber')
+let { en, es, id, ar } = require('./idiomas/total-idiomas.js') 
 
 function convertirMsADiasHorasMinutosSegundos(ms) {
 var segundos = Math.floor(ms / 1000);
@@ -51,7 +51,7 @@ return list[Math.floor(list.length * Math.random())]
 //información del usuario
 exports.getUserProfilePic = async (conn, sender) => {
 try {
-const userProfilePicUrl = await conn.profilePictureUrl(sender, "image");
+let userProfilePicUrl = await conn.profilePictureUrl(sender, "image");
 return await getBuffer(userProfilePicUrl);
 } catch {
 return fs.readFileSync("./media/Menu1");
@@ -60,21 +60,21 @@ return fs.readFileSync("./media/Menu1");
 //
 exports.getUserBio = async (conn, sender) => {
 try {
-const statusData = await conn.fetchStatus(sender);
+let statusData = await conn.fetchStatus(sender);
 return statusData.status;
 } catch {
 return "";
 }}
 
 //Tiempo de Actividad del bot
-const used = process.memoryUsage()
-const cpus = os.cpus().map(cpu => {
+let used = process.memoryUsage()
+let cpus = os.cpus().map(cpu => {
 cpu.total = Object.keys(cpu.times).reduce((last, type) => last + cpu.times[type], 0)
 return cpu
 })
 //conn.sendReadReceipt(from,sender,[m.key.id])
         
-const cpu = cpus.reduce((last, cpu, _, { length }) => {
+let cpu = cpus.reduce((last, cpu, _, { length }) => {
 last.total += cpu.total
 last.speed += cpu.speed / length
 last.times.user += cpu.times.user
@@ -97,7 +97,7 @@ irq: 0
 exports.getBuffer = async (url, options) => {
 try {
 options ? options : {}
-const res = await axios({
+let res = await axios({
 method: "get",
 url,
 headers: {
@@ -116,7 +116,7 @@ return err
 exports.fetchJson = async (url, options) => {
 try {
 options ? options : {}
-const res = await axios({
+let res = await axios({
 method: 'GET',
 url: url,
 headers: {
@@ -130,13 +130,13 @@ return err
 }
 }
 
-const downloadMediaMessage = async (message) => {
+let downloadMediaMessage = async (message) => {
 let mime = (message.msg || message).mimetype || ''
 let messageType = mime.split('/')[0].replace('application', 'document') ? mime.split('/')[0].replace('application', 'document') : mime.split('/')[0]
 let extension = mime.split('/')[1]
-const stream = await downloadContentFromMessage(message, messageType)
+let stream = await downloadContentFromMessage(message, messageType)
 let buffer = Buffer.from([])
-for await(const chunk of stream) {
+for await(let chunk of stream) {
 buffer = Buffer.concat([buffer, chunk])
 }
         
@@ -161,7 +161,7 @@ reject('error')
 })
 }
 
-const unixTimestampSeconds = (date = new Date()) => Math.floor(date.getTime() / 1000)
+let unixTimestampSeconds = (date = new Date()) => Math.floor(date.getTime() / 1000)
 
 exports.unixTimestampSeconds = unixTimestampSeconds
 
@@ -198,7 +198,7 @@ return `${Math.floor(Math.random() * 10000)}${ext}`
 exports.fetchJson = async (url, options) => {
 try {
 options ? options : {}
-const res = await axios({method: 'GET', url: url, headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36' }, ...options })
+let res = await axios({method: 'GET', url: url, headers: {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36' }, ...options })
 return res.data
 } catch (err) {
 return err
@@ -276,7 +276,7 @@ return url.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a
 }
 
 exports.buffergif = async (image) => {
-const filename = `${Math.random().toString(36)}`
+let filename = `${Math.random().toString(36)}`
 await fs.writeFileSync(`./tmp/${filename}.gif`, image)
 child_process.exec(`ffmpeg -i ./tmp/${filename}.gif -movflags faststart -pix_fmt yuv420p -vf "scale=trunc(iw/2)*2:trunc(ih/2)*2" ./tmp${filename}.mp4`)
 await sleep(4000)
@@ -320,7 +320,7 @@ var thisDay = tgl.getDay(),
 thisDay = myDays[thisDay];
 var yy = tgl.getYear()
 var year = (yy < 1000) ? yy + 1900 : yy; 
-const time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
+let time = moment.tz('Asia/Jakarta').format('DD/MM HH:mm:ss')
 let d = new Date
 let locale = 'id'
 let gmt = new Date(0).getTime() - new Date('1 January 1970').getTime()
@@ -356,10 +356,10 @@ return null
 }
 
 exports.generateProfilePicture = async (buffer) => {
-const jimp = await jimp_1.read(buffer)
-const min = jimp.getWidth()
-const max = jimp.getHeight()
-const cropped = jimp.crop(0, 0, min, max)
+let jimp = await jimp_1.read(buffer)
+let min = jimp.getWidth()
+let max = jimp.getHeight()
+let cropped = jimp.crop(0, 0, min, max)
 return {
 img: await cropped.scaleToFit(720, 720).getBufferAsync(jimp_1.MIME_JPEG),
 preview: await cropped.scaleToFit(720, 720).getBufferAsync(jimp_1.MIME_JPEG)
@@ -371,7 +371,7 @@ return [...text.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net'
 }
 
 exports.getGroupAdmins = (participantes) => {
-const admins = []
+let admins = []
 for (let i of participantes) {
 i.admin ? admins.push(i.id) : ''
 }
@@ -386,13 +386,13 @@ return admins
  */
 
 exports.smsg = (conn, m, hasParent) => {
-const pushname = m.pushName || "Sin nombre" 
+let pushname = m.pushName || "Sin nombre" 
 conn.downloadMediaMessage = async (message) => {
 let mime = (message.msg || message).mimetype || ''
 let messageType = message.mtype ? message.mtype.replace(/Message/gi, '') : mime.split('/')[0]
-const stream = await downloadContentFromMessage(message, messageType)
+let stream = await downloadContentFromMessage(message, messageType)
 let buffer = Buffer.from([])
-for await(const chunk of stream) {
+for await(let chunk of stream) {
 buffer = Buffer.concat([buffer, chunk])}
 return buffer} 
 
@@ -863,9 +863,9 @@ conn.downloadMediaMessage = async (message) => {
 let mime = (message.msg || message).mimetype || ''
 let messageType = mime.split('/')[0].replace('application', 'document') ? mime.split('/')[0].replace('application', 'document') : mime.split('/')[0]
 let extension = mime.split('/')[1]
-const stream = await downloadContentFromMessage(message, messageType)
+let stream = await downloadContentFromMessage(message, messageType)
 let buffer = Buffer.from([])
-for await(const chunk of stream) {
+for await(let chunk of stream) {
 buffer = Buffer.concat([buffer, chunk])
 }
 return buffer
@@ -938,7 +938,7 @@ conn.sendMessage(jid, { text: caption }, {quoted: { key: { fromMe: false, partic
     * @param {*} quoted
     */
 conn.editMessage = async (jid, text, editedText, seconds, quoted) => {
-const {key} = await conn.sendMessage(jid, { text: text }, { quoted: quoted ? quoted : m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100}); 
+let {key} = await conn.sendMessage(jid, { text: text }, { quoted: quoted ? quoted : m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100}); 
 await delay(1000 * seconds); // message in seconds?? (delay)
 await conn.sendMessage(m.chat, { text: editedText, edit: key }); 
 }
@@ -1086,8 +1086,8 @@ conn.sendButton = async (jid, text = '', footer = '', buffer, buttons, copy, url
 
   try {
     if (/^https?:\/\//i.test(buffer)) {
-      const response = await fetch(buffer);
-      const contentType = response.headers.get('content-type');
+      let response = await fetch(buffer);
+      let contentType = response.headers.get('content-type');
 
       if (/^image\//i.test(contentType)) {
         img = await prepareWAMessageMedia({ image: { url: buffer } }, { upload: conn.waUploadToServer });
@@ -1097,7 +1097,7 @@ conn.sendButton = async (jid, text = '', footer = '', buffer, buttons, copy, url
         console.error("Tipo MIME no compatible:", contentType);
       }
     } else {
-      const type = await conn.getFile(buffer);
+      let type = await conn.getFile(buffer);
       if (/^image\//i.test(type.mime)) {
         img = await prepareWAMessageMedia({ image: { url: buffer } }, { upload: conn.waUploadToServer });
       } else if (/^video\//i.test(type.mime)) {
@@ -1105,7 +1105,7 @@ conn.sendButton = async (jid, text = '', footer = '', buffer, buttons, copy, url
       }
     }
 
-    const dynamicButtons = buttons.map(btn => ({
+    let dynamicButtons = buttons.map(btn => ({
       name: 'quick_reply',
       buttonParamsJson: JSON.stringify({
         display_text: btn[0],
@@ -1135,7 +1135,7 @@ conn.sendButton = async (jid, text = '', footer = '', buffer, buttons, copy, url
       });
     }
 
-    const interactiveMessage = {
+    let interactiveMessage = {
       body: { text: text },
       footer: { text: footer },
       header: {
@@ -1165,8 +1165,8 @@ conn.sendButton = async (jid, text = '', footer = '', buffer, buttons, copy, url
 
 
 conn.sendList = async(jid, title, text, buttonText, listSections, quoted, options = {}) => {
-  const sections = [...listSections];
-  const message = {
+  let sections = [...listSections];
+  let message = {
     message: {
       "messageContextInfo": {
         "deviceListMetadata": {},
@@ -1205,9 +1205,9 @@ conn.sendList = async(jid, title, text, buttonText, listSections, quoted, option
 					
 conn.getFile = async (PATH, saveToFile = false) => { 
 let res; let filename; 
-const data = Buffer.isBuffer(PATH) ? PATH : PATH instanceof ArrayBuffer ? PATH.toBuffer() : /^data:.*?\/.*?;base64,/i.test(PATH) ? Buffer.from(PATH.split`,`[1], 'base64') : /^https?:\/\//.test(PATH) ? await (res = await fetch(PATH)).buffer() : fs.existsSync(PATH) ? (filename = PATH, fs.readFileSync(PATH)) : typeof PATH === 'string' ? PATH : Buffer.alloc(0); 
+let data = Buffer.isBuffer(PATH) ? PATH : PATH instanceof ArrayBuffer ? PATH.toBuffer() : /^data:.*?\/.*?;base64,/i.test(PATH) ? Buffer.from(PATH.split`,`[1], 'base64') : /^https?:\/\//.test(PATH) ? await (res = await fetch(PATH)).buffer() : fs.existsSync(PATH) ? (filename = PATH, fs.readFileSync(PATH)) : typeof PATH === 'string' ? PATH : Buffer.alloc(0); 
 if (!Buffer.isBuffer(data)) throw new TypeError('Result is not a buffer'); 
-const type = await FileType.fromBuffer(data) || { mime: 'application/octet-stream', ext: '.bin', }; 
+let type = await FileType.fromBuffer(data) || { mime: 'application/octet-stream', ext: '.bin', }; 
 if (data && saveToFile && !filename) (filename = path.join(__dirname, '../tmp/' + new Date * 1 + '.' + type.ext), await fs.promises.writeFile(filename, data)); 
 return { res, filename, ...type, data, deleteFile() { 
 return filename && fs.promises.unlink(filename); 
@@ -1222,7 +1222,7 @@ return filename && fs.promises.unlink(filename);
     * @return
     */
 conn.sendFile = async (jid, path, filename = '', caption = '', quoted, ptt = false, options = {}) => {
-const type = await conn.getFile(path, true); 
+let type = await conn.getFile(path, true); 
 let {res, data: file, filename: pathFile} = type; 
 if (res && res.status !== 200 || file.length <= 65536) { 
 try { 
@@ -1230,7 +1230,7 @@ throw {json: JSON.parse(file.toString())};
 } catch (e) { 
 if (e.json) throw e.json; 
 }}      
-const opt = {}; 
+let opt = {}; 
 if (quoted) opt.quoted = quoted; 
 if (!type) options.asDocument = true; 
 let mtype = ''; let mimetype = options.mimetype || type.mime; let convert; 
@@ -1254,7 +1254,7 @@ delete options.asVideo;
 delete options.asDocument; 
 delete options.asImage; 
   
-const message = { ...options, caption, ptt, [mtype]: {url: pathFile}, mimetype, fileName: filename || pathFile.split('/').pop(), }; 
+let message = { ...options, caption, ptt, [mtype]: {url: pathFile}, mimetype, fileName: filename || pathFile.split('/').pop(), }; 
 /** 
 * @type {import('@whiskeysockets/baileys').proto.WebMessageInfo} 
 */ 
@@ -1274,9 +1274,9 @@ conn.downloadAndSaveMediaMessage = async (message, filename, attachExtension = t
 let quoted = message.msg ? message.msg : message
 let mime = (message.msg || message).mimetype || ''
 let messageType = message.mtype ? message.mtype.replace(/Message/gi, '') : mime.split('/')[0]
-const stream = await downloadContentFromMessage(quoted, messageType)
+let stream = await downloadContentFromMessage(quoted, messageType)
 let buffer = Buffer.from([])
-for await(const chunk of stream) {
+for await(let chunk of stream) {
 buffer = Buffer.concat([buffer, chunk])}
 let type = await FileType.fromBuffer(buffer)
 trueFileName = attachExtension ? (filename + '.' + type.ext) : filename
@@ -1298,7 +1298,7 @@ return m
 }
 
 function ucapan() {
-  const time = moment.tz("America/Los_Angeles").format("HH"); //America/Los_Angeles  Asia/Jakarta   America/Toronto
+  let time = moment.tz("America/Los_Angeles").format("HH"); //America/Los_Angeles  Asia/Jakarta   America/Toronto
 
   let res = "🌉Buenas madrugadas";
 
