@@ -290,6 +290,31 @@ if (!methodCodeQR && !methodCode && !fs.existsSync(`./sessions/creds.json`)) {
 
     async function startBot() {
 
+// Función para calcular el uptime en formato legible
+function clockString(ms) {
+  const d = Math.floor(ms / 86400000);
+  const h = Math.floor(ms / 3600000) % 24;
+  const m = Math.floor(ms / 60000) % 60;
+  const s = Math.floor(ms / 1000) % 60;
+  return `${d}d ${h}h ${m}m ${s}s`;
+}
+
+// Intervalo para actualizar la biografía del bot cada 60 segundos
+setInterval(async () => {
+  if (!sock || !sock.user) return;
+  const _uptime = process.uptime() * 1000;
+  const uptime = clockString(_uptime);
+  const bio = `💥 ansi-B᥆𝗍 |「🕒」Aᥴ𝗍і᥎᥆: ${uptime}`;
+  
+  try {
+    await sock.updateProfileStatus(bio);
+    console.log(`✅ Estado actualizado: ${bio}`);
+  } catch (err) {
+    console.error('❌ Error al actualizar el estado:', err);
+  }
+}, 60000);
+
+
         console.info = () => {}
         const socketSettings = {
             printQRInTerminal: opcion == '1' ? true : methodCodeQR ? true : false,

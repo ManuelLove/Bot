@@ -13,7 +13,7 @@ const axios = require('axios')
 
 //---------[ PROPIETARIO/OWNER ]---------
 global.owner = [
-    ["50582340051", "Owner", true],
+    ["573012686632", "Owner", true],
     ["595984838201"],
     ["51918534156"],
     ["123456789"]
@@ -24,11 +24,11 @@ global.blockList = []
 
 //---------[ NOMBRE/INFO ]---------
 global.pagina = "https://ansibot.netlify.app/"
-global.botname = "✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨"
-global.wm = '✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨'
+global.botname = "✨ Nury-Bot ✨"
+global.wm = '✨ Nury-Bot ✨'
 global.vs = '𝟮.𝟭'
-global.creador = '𝐸𝐿𝐼𝐴𝑆𝐴𝑅 𝑌𝑇'
-global.creador2 = 'ELIASAR YT'
+global.creador = 'Techfix Solutions'
+global.creador2 = 'ManuDiaz'
 global.nunber = Math.floor(Math.random() * (27 - 18 + 1)) + 18;
 
 function pickRandom(array) {
@@ -49,7 +49,7 @@ global.prefix = [` `]
 //---------[ APIS GLOBAL ]---------
 global.API = (name, path = '/', query = {}, apikeyqueryname) => (name in global.APIs ? global.APIs[name] : name) + path + (query || apikeyqueryname ? '?' + new URLSearchParams(Object.entries({...query, ...(apikeyqueryname ? {[apikeyqueryname]: global.APIKeys[name in global.APIs ? global.APIs[name] : name]} : {})})) : '');
 global.apis = 'https://deliriussapi-oficial.vercel.app'
-global.eliasarapi = 'EliasarYT'
+global.eliasarapi = 'ManuVPS'
 global.keysZens = ['LuOlangNgentot', 'c2459db922', '37CC845916', '6fb0eff124', 'hdiiofficial', 'fiktod', 'BF39D349845E', '675e34de8a', '0b917b905e6f'];
 global.keysxxx = keysZens[Math.floor(keysZens.length * Math.random())];
 global.keysxteammm = ['29d4b59a4aa687ca', '5LTV57azwaid7dXfz5fzJu', 'cb15ed422c71a2fb', '5bd33b276d41d6b4', 'HIRO', 'kurrxd09', 'ebb6251cc00f9c63'];
@@ -104,15 +104,15 @@ global.APIs = {
 //---------[ STICKERS ]---------
 global.packname = ""
 global.author = `{
- "bot": "✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨"
-  "autor": "Eliasar YT",
+ "bot": "🌹💠Nury-Bot💠🌹"
+  "autor": "ManuVPS",
   "version": "1.2",
-  "creador": "Eliasar YT"
+  "creador": "ManuVPS"
 }
 `
 
 //-----------------IMAGENES---------
-global.menuimg = "https://tinyurl.com/2ba3hubq"
+global.menuimg = "https://i.ibb.co/kgCxm15P/IMG-20250314-WA0023.png"
 global.img = "https://tinyurl.com/2clsqrcm";
 global.img1 = "https://tinyurl.com/289vd9yd";
 global.img2 = 'https://tinyurl.com/267ncfe7';
@@ -137,26 +137,26 @@ global.noperfil = fs.readFileSync('./media/sinfoto.jpg')
 global.verificar = fs.readFileSync('./media/menu2.jpg')
 
 //---------[ ENLACES ]---------
-global.md = 'https://github.com/Eliasar54/ansi-BOT-MD.git'
-global.yt = 'https://www.youtube.com/@Eliasar_yt'
-global.tiktok = 'https://www.tiktok.com/@eliasar_yt?_t=8mjJpoJfOBK&_r=1'
-global.fb = 'https://www.facebook.com/EliasarYT2'
-global.faceb = 'https://www.facebook.com/EliasarYT2'
-global.paypal = 'https://www.paypal.me/eliasarmoncada'
+global.md = 'https://'
+global.yt = 'https://'
+global.tiktok = 'https://'
+global.fb = 'https://'
+global.faceb = 'https://'
+global.paypal = 'https://'
 
-global.host = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4';
-global.nna = 'https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36';
-global.nn = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
-global.nn2 = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
-global.nn3 = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
-global.nn4 = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
-global.nn5 = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
-global.nn6 = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
-global.nn7 = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
-global.nn8 = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
-global.multi = 'https://chat.whatsapp.com/GI6EfsV1zIMHryC6m0yyX4'
-global.nna2 = 'https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36'
-global.n2 = 'https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36'
+global.host = 'https://';
+global.nna = 'https://';
+global.nn = 'https://'
+global.nn2 = 'https://'
+global.nn3 = 'https://'
+global.nn4 = 'https://'
+global.nn5 = 'https://'
+global.nn6 = 'https://'
+global.nn7 = 'https://'
+global.nn8 = 'https://'
+global.multi = 'https://'
+global.nna2 = 'https://'
+global.n2 = 'https://'
 //---------[ INFO ]--------- 
 global.info = {
     wait: '*_■■□□□40%_*',

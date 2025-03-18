@@ -1,3 +1,8 @@
+let conn = {}; // Si `conn` no está definido, agrégalo
+const handlerAcertijoResp = require('./plugins/fun-acertijo-resp.js');
+conn.before = async function (m) {
+  handlerAcertijoResp.before(m, { conn });
+};
 // Este código fue desarrollado originalmente por:
 // @gata_dios  
 // @Skidy89  
@@ -52,6 +57,7 @@ const os = require('os') // Proporciona información del sistema operativo
 const fs = require('fs') // Trabajar con el sistema de archivos    
 const fetch = require('node-fetch')
 const axios = require('axios')
+const path = require('path')
 const {
 fileURLToPath
 } = require('url')
@@ -125,6 +131,11 @@ game,
 game2,
 game3
 } = require('./plugins/juegos.js')
+const { rdGame, iGame, tGame, gameSlot, gameCasinoSolo, gameMerampok, gameBegal, daily, buy, setLimit, addLimit, addUang, setUang, transfer, gameAcertijo } = require('./libs/game.js');
+const handler = require('./plugins/fun-acertijo-resp.js');
+conn.before = async function (m) {
+  handlerAcertijoResp.before(m, { conn });
+};
 const {
 buscadores
 } = require('./plugins/buscadores.js')
@@ -157,6 +168,10 @@ const {
 enable
 } = require('./plugins/enable.js')
 //global.db.data.sticker = global.db.data.sticker || {} 
+db.game = db.game || {}; // Asegura que db.game exista
+db.game.suitpvp = db.game.suitpvp || []; // Asegura que suitpvp exista
+let suitpvp = db.game.suitpvp;
+let boom = db.game.boom = []
 let user = global.db.data.users[m.sender]
 let tebaklagu = global.db.data.game.tebaklagu = []
 let kuismath = global.db.data.game.math = []
@@ -178,7 +193,7 @@ buffer = Buffer.concat([buffer, chunk])
 return buffer
 }
 
-module.exports = conn = async (conn, m, chatUpdate, mek, store) => {
+module.exports = async (conn, m, chatUpdate, mek, store) => {
 var body = (m.mtype === 'conversation') ? m.message.conversation : (m.mtype == 'imageMessage') ? m.message.imageMessage.caption : (m.mtype == 'videoMessage') ? m.message.videoMessage.caption : (m.mtype == 'extendedTextMessage') ? m.message.extendedTextMessage.text : (m.mtype == 'buttonsResponseMessage') ? m.message.buttonsResponseMessage.selectedButtonId : (m.mtype == 'listResponseMessage') ? m.message.listResponseMessage.singleSelectReply.selectedRowId : (m.mtype == 'templateButtonReplyMessage') ? m.message.templateButtonReplyMessage.selectedId : (m.mtype === 'messageContextInfo') ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text) : ''
 
 //----------------------[ ATRIBUTOS ]-------------------------
@@ -305,17 +320,17 @@ const who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m
 const thumb = fs.readFileSync("./media/menu2.jpg")
 const fkontak = {
   "key": {
-    "participants": "50582340051@s.whatsapp.net",
+    "participants": "573012686632@s.whatsapp.net",
     "remoteJid": "status@broadcast",
     "fromMe": false,
     "id": "Halo"
   },
   "message": {
     "contactMessage": {
-      "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:EliadarYT;;;\nFN:EliadarYT\nitem1.TEL;waid=50582340051:50582340051\nitem1.X-ABLabel:Ponsel\nEND:VCARD`
+      "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:EliadarYT;;;\nFN:EliadarYT\nitem1.TEL;waid=573012686632:573012686632\nitem1.X-ABLabel:Ponsel\nEND:VCARD`
     }
   },
-  "participant": "50582340051@s.whatsapp.net"
+  "participant": "573012686632@s.whatsapp.net"
 };
 const ftroli = {
 key: {
@@ -364,12 +379,12 @@ const time = moment(Number(msg.messageTimestamp + "000")).locale("es-mx").tz("Am
 /*const reply = (text) => {  
 m.reply(text)}*/
 let canalId = [
-"120363296103096943@newsletter",
-"120363296103096943@newsletter"
+"120363395078160821@newsletter",
+"120363395078160821@newsletter"
 ];
 let canalNombre = [
-"✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨",
-"✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨"
+"🛡️Ciberseguridad~Bot🛡️",
+"🛡️Ciberseguridad~Bot🛡️"
 ];
 
 async function getRandomChannel() {
@@ -511,7 +526,7 @@ if (new Date() * 1 - setting.status > 1000) {
 let uptime = await runtime(process.uptime())
 var timestamp = speed();   
 var latensi = speed() - timestamp 
-let text = [`${lenguaje.Bio.text} ${Object.keys(global.db.data.users).length} ${lenguaje.Bio.text2} ${latensi.toFixed(4)} 🚀`, `${lenguaje.Bio.text3} ${runtime(process.uptime())}\n\n${lenguaje.Bio.text4}`, `${lenguaje.Bio.text5}`, `✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨ uso: ${conn.public ? 'Publico' : 'Privado'} | ${lenguaje.Bio.text6} ${runtime(process.uptime())} | ${lenguaje.Bio.text7} ${Object.keys(global.db.data.users).length} crador Eliasar YT`]
+let text = [`${lenguaje.Bio.text} ${Object.keys(global.db.data.users).length} ${lenguaje.Bio.text2} ${latensi.toFixed(4)} 🚀`, `${lenguaje.Bio.text3} ${runtime(process.uptime())}\n\n${lenguaje.Bio.text4}`, `${lenguaje.Bio.text5}`, `🛡️Ciberseguridad~Bot🛡️ uso: ${conn.public ? 'Publico' : 'Privado'} | ${lenguaje.Bio.text6} ${runtime(process.uptime())} | ${lenguaje.Bio.text7} ${Object.keys(global.db.data.users).length} crador Eliasar YT`]
 let bio = text[Math.floor(Math.random() * text.length)]
 try {
 await conn.updateProfileStatus(bio)
@@ -611,10 +626,16 @@ if (isGroupAdmins) return
 const user = global.db.data.users[m.sender];
 const chat = global.db.data.chats[m.chat];
 const bot = global.db.data.settings[conn.user.jid] || {};
-const isToxic = budy.match;
+const isToxic = budy.match(/g0re|g0r3|g.o.r.e|sap0|sap4|malparido|...|fucking/gi); 
+const palabraProhibida = isToxic ? isToxic[0] : null;
 user.warn += 1;
 if (!(user.warn >= 4)) await conn.sendMessage(m.chat, {
-text: `${lenguaje['AntiToxic'](m, isToxic)}\n⚠️ *${user.warn}/4*\n\n${botname}`,
+text: `🚨 *Toxico(a) Detectado* 🚨\n\n` +
+      `👤 *Usuario:* @${m.sender.split('@')[0]}\n` +
+      `💬 *Mensaje:* "${budy}"\n` +  // Aquí muestra el mensaje completo que escribió el usuario
+      `🤖 *Palabra detectada:* "${palabraProhibida || "❌ No detectada"}"\n` +
+      `⚠️ *Advertencia:* *${user.warn}/4*\n\n` +  // Muestra cuántas advertencias lleva
+      `Hey decir palabras groseras está prohibida en este grupo. No seas tóxico(a).`,
 mentions: [m.sender]
 }, {
 quoted: m
@@ -675,7 +696,7 @@ quoted: m
 })
 console.log(`Auto sticker detected`)
 } else if (/video/.test(mime)) {
-if ((quoted.msg || quoted).seconds > 25) return reply(lenguaje['smsAutoSicker']())
+if ((quoted.msg || quoted).seconds > 25) return m.reply(lenguaje['smsAutoSicker']())
 let media = await quoted.download()
 await conn.sendVideoAsSticker(m.chat, media, m, {
 packname: global.packname,
@@ -721,7 +742,7 @@ ppuser = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-9
 const imageUrl = `https://eliasar-yt-api.vercel.app/api/levelup?avatar=${encodeURIComponent(ppuser)}`;
 let text = [
 `🎉 ¡Felicidades! @${m.sender.split`@`[0]} ha subido de nivel.\n⬅️ Nivel anterior: ${before}\n➡️ Nuevo nivel: ${user.level}\n🌟 Rol actual: ${user.role}\n📅 Fecha: ${new Date().toLocaleString('id-ID')}\n✨ ¡Sigue así!`,
-`🌟 @${m.sender.split`@`[0]} ha alcanzado un nuevo nivel.\n🔙 Anterior: ${before}\n🔜 Nuevo: ${user.level}\n👑 Rol: ${user.role}\n📅 Fecha: ${new Date().toLocaleString('id-ID')}\n> mira tu nivel aquí https://whatsapp.com/channel/0029Vb1f29nIt5rnxPslac3q`
+`🌟 @${m.sender.split`@`[0]} ha alcanzado un nuevo nivel.\n🔙 Anterior: ${before}\n🔜 Nuevo: ${user.level}\n👑 Rol: ${user.role}\n📅 Fecha: ${new Date().toLocaleString('id-ID')}\n> mira tu nivel aquí `
 ];
 let str = text[Math.floor(Math.random() * text.length)];
 
@@ -870,7 +891,7 @@ let ok
 let isWin = !1
 let isTie = !1
 let isSurrender = !1
-//reply(`[DEBUG]\n${parseInt(m.text)}`)
+//m.reply(`[DEBUG]\n${parseInt(m.text)}`)
 if (!/^([1-9]|(me)?give up|surr?ender|off|skip)$/i.test(m.text)) return
 isSurrender = !/^[1-9]$/.test(m.text)
 if (m.sender !== room13.game.currentTurn) {
@@ -937,9 +958,190 @@ if (isWin)
 users[winner].exp += winScore - playScore
 }
 }
+// 🎮 Suit PvP - Ahora avisa cuando el oponente elige y muestra el resultado
+let roof = Object.values(suitpvp).find(roof => roof.id && roof.status && [roof.p, roof.p2].includes(m.sender));
+if (roof) {
+    let win = '';
+    let tie = false;
+    if (m.sender == roof.p2 && /^(aceptar|ok|yes|si)$/i.test(m.text) && m.isGroup && roof.status == 'wait') {
+        roof.status = 'play';
+        roof.asal = m.chat;
+        clearTimeout(roof.waktu);
+        m.reply(`Suit ha sido enviado al chat\n\n@${roof.p.split`@`[0]} y @${roof.p2.split`@`[0]}\n\nPor favor seleccionen su jugada.`);
+        
+        await conn.sendMessage(roof.p, { text: `🗿 Piedra\n📄 Papel\n✂️ Tijeras\n\nEscribe una opción para jugar.` }, { quoted: m });
+        await conn.sendMessage(roof.p2, { text: `🗿 Piedra\n📄 Papel\n✂️ Tijeras\n\nEscribe una opción para jugar.` }, { quoted: m });
 
-//math
-if (kuismath.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
+        roof.waktu_milih = setTimeout(() => {
+            if (!roof.pilih && !roof.pilih2) {
+                m.reply(`⏳ *Tiempo agotado* - Nadie eligió, juego cancelado.`);
+            } else if (!roof.pilih || !roof.pilih2) {
+                let quienNoEligio = !roof.pilih ? roof.p : roof.p2;
+                m.reply(`❌ @${quienNoEligio.split`@`[0]} no eligió a tiempo, juego cancelado.`);
+            }
+            delete suitpvp[roof.id];
+            return !0;
+        }, roof.timeout);
+    }
+    
+    let jugador1 = m.sender == roof.p;
+    let jugador2 = m.sender == roof.p2;
+    let reg = /^(tijeras|piedra|papel)/i;
+    
+    if (jugador1 && reg.test(m.text) && !roof.pilih) {
+        roof.pilih = reg.exec(m.text.toLowerCase())[0];
+        m.reply(`✅ Has elegido *${roof.pilih}*.\n\n⏳ Esperando a que tu oponente elija...`);
+        await conn.sendMessage(roof.p2, { text: `⚠️ *Tu oponente ya eligió*.\nAhora elige tu opción: 🗿 Piedra, 📄 Papel, ✂️ Tijeras.` }, { quoted: m });
+    }
+    
+    if (jugador2 && reg.test(m.text) && !roof.pilih2) {
+        roof.pilih2 = reg.exec(m.text.toLowerCase())[0];
+        m.reply(`✅ Has elegido *${roof.pilih2}*.\n\n⏳ Esperando a que se procesen los resultados...`);
+        await conn.sendMessage(roof.p, { text: `⚠️ *Tu oponente ya eligió*.\nPronto verás los resultados.` }, { quoted: m });
+    }
+
+    if (roof.pilih && roof.pilih2) {
+        clearTimeout(roof.waktu_milih);
+
+        let stage1 = roof.pilih;
+        let stage2 = roof.pilih2;
+        
+        if ((stage1 === "piedra" && stage2 === "tijeras") ||
+            (stage1 === "tijeras" && stage2 === "papel") ||
+            (stage1 === "papel" && stage2 === "piedra")) {
+            win = roof.p;
+        } else if (stage1 === stage2) {
+            tie = true;
+        } else {
+            win = roof.p2;
+        }
+
+        // **Recompensas**
+        let premioDinero = 1000;
+        let expGanador = 5;
+        let expPerdedor = 3;
+
+        if (!tie) {
+            let winner = win === roof.p ? roof.p : roof.p2;
+            let loser = win === roof.p ? roof.p2 : roof.p;
+
+            // Asegurar que los jugadores existen en la base de datos
+            if (!global.db.data.users[winner]) global.db.data.users[winner] = { exp: 0, money: 0 };
+            if (!global.db.data.users[loser]) global.db.data.users[loser] = { exp: 0, money: 0 };
+
+            // Actualizar recompensas de manera segura
+            global.db.data.users[winner].money = (global.db.data.users[winner].money || 0) + premioDinero;
+            global.db.data.users[winner].exp = (global.db.data.users[winner].exp || 0) + expGanador;
+            global.db.data.users[loser].exp = Math.max(0, (global.db.data.users[loser].exp || 0) - expPerdedor);
+        }
+
+        // **Mostrar resultados en el grupo**
+        let resultadoMsg = `🎮 *Resultados de Suit PvP*\n\n`;
+        resultadoMsg += `👤 @${roof.p.split`@`[0]} eligió: *${roof.pilih}*\n`;
+        resultadoMsg += `👤 @${roof.p2.split`@`[0]} eligió: *${roof.pilih2}*\n\n`;
+        
+        if (tie) {
+            resultadoMsg += `⚖️ *Empate* - Nadie gana ni pierde.`;
+        } else {
+            resultadoMsg += `🏆 *Ganador:* @${win.split`@`[0]}\n💰 *Premio:* ${premioDinero} Dinero, ${expGanador} EXP\n❌ *Perdedor pierde:* ${expPerdedor} EXP`;
+        }
+
+        conn.sendMessage(roof.asal, { text: resultadoMsg.trim(), mentions: [roof.p, roof.p2] }, { quoted: m });
+        
+        delete suitpvp[roof.id];
+    }
+}
+		
+// Tebak Bomb (Ahora usa Dinero en lugar de EXP)
+let pilih = '🌀', bomb = '💣';
+if (m.sender in boom) {
+    if (!/^[1-9]|10$/i.test(body) && !isCmd && !isCreator) return !0;
+
+    // ✅ Asegurar que el usuario esté registrado antes de modificar su dinero
+    if (!global.db.data.users[m.sender]) {
+        global.db.data.users[m.sender] = { exp: 0, money: 0 }; // Inicializa el usuario si no existe
+    }
+
+    let selectedIndex = parseInt(body) - 1;
+
+    if (boom[m.sender].petak[selectedIndex] === 2) {
+        boom[m.sender].board[selectedIndex] = bomb;
+        boom[m.sender].nyawa.pop(); // Reduce la vida
+        boom[m.sender].bomb--; // 🔥 Ahora se reduce correctamente el número de bombas restantes
+
+        let vidasRestantes = '❤️'.repeat(boom[m.sender].nyawa.length);
+        let bombasRestantes = boom[m.sender].bomb;
+        let casillasAbiertas = boom[m.sender].pick; // 🔥 Llevar la cuenta de cuántas casillas se han abierto
+        let brd = boom[m.sender].board.join('');
+
+        if (boom[m.sender].nyawa.length < 1) {
+            let dineroPerdido = Math.floor(Math.random() * 500) + 200; // Rango de pérdida: 200 a 500 dinero
+            global.db.data.users[m.sender].money = Math.max(0, global.db.data.users[m.sender].money - dineroPerdido);
+
+            await m.reply(`*SELECCIONA UN NÚMERO*
+
+Fuiste alcanzado por una bomba
+${brd}
+
+*Casillas abiertas:* ${casillasAbiertas}
+Vida restante: ${vidasRestantes}
+Bombas restantes: ${bombasRestantes}
+⚠️ *Has perdido ${dineroPerdido} Dinero*`);
+
+            delete boom[m.sender]; // Eliminar la partida después de perder
+        } else {
+            await m.reply(`*SELECCIONA UN NÚMERO*
+
+Fuiste alcanzado por una bomba
+${brd}
+
+*Casillas abiertas:* ${casillasAbiertas}
+Vida restante: ${vidasRestantes}
+Bombas restantes: ${bombasRestantes}`);
+        }
+    } else if (boom[m.sender].petak[selectedIndex] === 0) {
+        boom[m.sender].petak[selectedIndex] = 1;
+        boom[m.sender].board[selectedIndex] = pilih;
+        boom[m.sender].lolos--;
+        boom[m.sender].pick++; // 🔥 Sumar casilla abierta
+
+        let vidasRestantes = '❤️'.repeat(boom[m.sender].nyawa.length);
+        let bombasRestantes = boom[m.sender].bomb;
+        let casillasAbiertas = boom[m.sender].pick;
+        let brd = boom[m.sender].board.join('');
+
+        if (boom[m.sender].lolos < 1) {
+            let dineroGanado = Math.floor(Math.random() * 1000) + 500; // Rango de ganancia: 500 a 1000 dinero
+            global.db.data.users[m.sender].money += dineroGanado;
+
+            await m.reply(`*¡Eres un maestro del boom! 🎉*
+
+${brd}
+
+*Casillas abiertas:* ${casillasAbiertas}
+Vida restante: ${vidasRestantes}
+Bombas restantes: ${bombasRestantes}
+🎖 *Has ganado ${dineroGanado} Dinero*`);
+
+            delete boom[m.sender]; // Eliminar la partida después de ganar
+        } else {
+            await m.reply(`*SELECCIONA UN NÚMERO*
+
+${brd}
+
+*Casillas abiertas:* ${casillasAbiertas}
+Vida restante: ${vidasRestantes}
+Bombas restantes: ${bombasRestantes}`);
+        }
+    }
+}
+
+    // 🔥 Solución a dependencias circulares en game y confirm
+    db.game = db.game || {}; // Asegura que db.game siempre exista
+    this.confirm = this.confirm || {}; // Asegura que confirm siempre exista
+
+    const game = require('./libs/game.js');
+                if (kuismath.hasOwnProperty(m.sender.split('@')[0]) && isCmd) {
 kuis = true
 jawaban = kuismath[m.sender.split('@')[0]]
 if (budy.toLowerCase() == jawaban) {
@@ -1125,6 +1327,219 @@ return;
 }
 //ARRANCA LA DIVERSIÓN   
 switch (prefix && command) {
+case 'ytsearch': {
+  updatePopularCommand(command); // Mencatat command
+  if (!text) return m.reply(`Ejemplo : ${prefix + command} historia de anime`);
+  if (!firely(m, '⏳ Tratamiento..')) return; // Jika limit habis, proses berhenti di sini
+
+  try {
+    // Cari hasil di YouTube menggunakan API
+    let search = await yts(text);
+    if (!search.all.length) return m.reply("¡No se encontraron resultados de búsqueda!");
+
+    // Batasi hasil pencarian ke 5 item teratas dan siapkan carousel card
+    const carouselCards = await Promise.all(search.all.slice(0, 5).map(async (video, index) => ({
+      header: {
+        title: `Resultados ${index + 1}`,
+        hasMediaAttachment: true,
+        imageMessage: (await generateWAMessageContent({
+          image: { url: video.thumbnail }
+        }, { upload: conn.waUploadToServer })).imageMessage
+      },
+      body: {
+        text: `🎥 *${video.title}*\n👁 *Vistas:* ${video.views}\n⏱ *Duración:* ${video.timestamp}\n📆 *Subido:* ${video.ago}\n📝 *Url:* ${video.url}`
+            },
+      footer: {
+        text: `Haga clic en el botón a continuación para ver o copiar el enlace.`
+      },
+      nativeFlowMessage: {
+        buttons: [
+          {
+            "name": "cta_url",
+            "buttonParamsJson": JSON.stringify({
+            "display_text": "📺 Ver Video",
+            "url": `${video.url}`
+            })
+          },
+          {
+            "name": "cta_copy",
+            "buttonParamsJson": JSON.stringify({
+            "display_text": "📋 Copiar URL",
+            "copy_code": `${video.url}`
+            })
+          }
+        ]
+      }
+    })));
+
+    // Buat pesan carousel
+    const carouselMessage = generateWAMessageFromContent(m.chat, {
+      viewOnceMessage: {
+        message: {
+          messageContextInfo: {
+            deviceListMetadata: {},
+            deviceListMetadataVersion: 2
+          },
+          interactiveMessage: proto.Message.InteractiveMessage.fromObject({
+            body: {
+              text: `🔎 *Resultados de búsqueda de YouTube para:* _${text}_`
+            },
+            footer: {
+              text: `Bot de YouTube de Techfix Solutions`
+            },
+            header: {
+              hasMediaAttachment: false
+            },
+            carouselMessage: proto.Message.InteractiveMessage.CarouselMessage.fromObject({
+              cards: carouselCards
+            })
+          })
+        }
+      }
+    }, {});
+
+    // Kirim pesan carousel
+    await conn.relayMessage(m.chat, carouselMessage.message, {
+      messageId: carouselMessage.key.id
+    });
+
+  } catch (e) {
+    console.error("Error al procesar la solicitud de búsqueda de YouTube:", e);
+    await conn.sendMessage(m.chat, {
+      text: "❌ Se produjo un error al procesar una búsqueda en YouTube. Por favor inténtalo de nuevo."
+    }, { quoted: m });
+  }
+}
+break;
+
+case 'ytios': {
+    console.log("✅ Ejecutando ytsearch con término:", text);
+    if (!text) return m.reply("🔹 Debes ingresar un término de búsqueda.");
+
+    let search = await yts(text);
+    if (!search.all.length) return m.reply("❌ No se encontraron resultados.");
+
+    for (let video of search.all.slice(0, 5)) {
+        let message = `🎥 *${video.title}*\n🔗 ${video.url}`;
+        
+        await conn.sendMessage(m.chat, { 
+            image: { url: video.thumbnail }, 
+            caption: message 
+        }, { quoted: m });
+    }
+    
+    console.log("✅ Respuesta enviada con imágenes y resultados.");
+}
+break;
+
+case 'ytmp3': {
+    console.log("✅ Ejecutando ytmp3 con URL:", text);
+    if (!text) return m.reply("🔹 Debes proporcionar una URL de YouTube.");
+    if (!isUrl(text)) return m.reply("❌ URL no válida.");
+
+    m.reply("⌛ᴄᴀʀɢᴀɴᴅᴏ...\n▰▰▰▰▰▰▰▰▱"); // Mensaje de carga
+
+    try {
+        let response = await fetch(`https://api.siputzx.my.id/api/d/ytmp3?url=${text}`);
+        let data = await response.json();
+
+        if (data.status && data.data.dl) {
+            const fileUrl = data.data.dl;
+            const uniqueId = Date.now(); // Generar un ID único para cada descarga
+            const fileName = `audio_${uniqueId}.mp3`;
+            const fixedFileName = `fixed_audio_${uniqueId}.mp3`;
+            const filePath = `${__dirname}/${fileName}`;
+            const fixedFilePath = `${__dirname}/${fixedFileName}`;
+
+            console.log('⏳ Descargando archivo de audio...');
+            const writer = fs.createWriteStream(filePath);
+            const audioResponse = await axios({
+                url: fileUrl,
+                method: 'GET',
+                responseType: 'stream',
+            });
+            audioResponse.data.pipe(writer);
+
+            writer.on('finish', () => {
+                console.log('✅ Archivo descargado. Iniciando conversión...');
+
+                ffmpeg(filePath)
+                    .toFormat('mp3')
+                    .on('end', () => {
+                        console.log('✅ Conversión completada. Enviando archivo...');
+                        conn.sendMessage(m.chat, {
+                            audio: fs.readFileSync(fixedFilePath),
+                            mimetype: 'audio/mpeg',
+                            fileName: `audio_${uniqueId}.mp3`,
+                        }, { quoted: m });
+
+                        // Eliminar archivos después de enviarlos para evitar acumulación
+                        fs.unlinkSync(filePath);
+                        fs.unlinkSync(fixedFilePath);
+                    })
+                    .save(fixedFilePath);
+            });
+
+        } else {
+            m.reply("❌ Error al descargar el audio.");
+        }
+    } catch (err) {
+        console.error("❌ Error en ytmp3:", err);
+        m.reply("❌ Hubo un problema al procesar tu solicitud.");
+    }
+    console.log("✅ Comando ytmp3 finalizado.");
+}
+break;
+
+case 'ytmp4': {
+    console.log("✅ Ejecutando ytmp4 con URL:", text);
+    if (!text) return m.reply("🔹 Debes proporcionar una URL de YouTube.");
+    if (!isUrl(text)) return m.reply("❌ URL no válida.");
+
+    m.reply("⌛ᴄᴀʀɢᴀɴᴅᴏ...\n▰▰▰▰▰▰▰▰▱"); // Mensaje de carga
+
+    try {
+        let response = await fetch(`https://api.siputzx.my.id/api/d/ytmp4?url=${text}`);
+        let data = await response.json();
+
+        if (data.status && data.data.dl) {
+            const fileUrl = data.data.dl;
+            const uniqueId = Date.now(); // Generar un ID único para cada descarga
+            const fileName = `video_${uniqueId}.mp4`;
+            const filePath = `${__dirname}/${fileName}`;
+
+            console.log('⏳ Descargando archivo de video...');
+            const writer = fs.createWriteStream(filePath);
+            const videoResponse = await axios({
+                url: fileUrl,
+                method: 'GET',
+                responseType: 'stream',
+            });
+            videoResponse.data.pipe(writer);
+
+            writer.on('finish', () => {
+                console.log('✅ Video descargado. Enviando archivo...');
+                conn.sendMessage(m.chat, {
+                    video: fs.readFileSync(filePath),
+                    mimetype: 'video/mp4',
+                    fileName: `video_${uniqueId}.mp4`,
+                }, { quoted: m });
+
+                // Eliminar archivo después de enviarlo
+                fs.unlinkSync(filePath);
+            });
+
+        } else {
+            m.reply("❌ Error al descargar el video.");
+        }
+    } catch (err) {
+        console.error("❌ Error en ytmp4:", err);
+        m.reply("❌ Hubo un problema al procesar tu solicitud.");
+    }
+    console.log("✅ Comando ytmp4 finalizado.");
+}
+break;
+
 case 'test': {
 const test = generateWAMessageFromContent(from, {
 viewOnceMessage: {
@@ -1156,8 +1571,8 @@ mentionedJid: [m.sender],
 forwardingScore: 1,
 isForwarded: true,
 forwardedNewsletterMessageInfo: {
-newsletterJid: '120363296103096943@newsletter',
-newsletterName: '✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨',
+newsletterJid: '120363395078160821@newsletter',
+newsletterName: '🛡️Ciberseguridad~Bot🛡️',
 serverMessageId: ''
 }
 }
@@ -1211,6 +1626,7 @@ break
 case 'yts':
 case 'playlist':
 case 'ytsearch':
+case 'ytios':
 case 'acortar':
 case 'google':
 case 'imagen':
@@ -1496,7 +1912,8 @@ await delay(5 * 1000);
 }
 break;
 
-//juegos  
+
+    // 📌 Juegos Generales
 case 'simi':
 case 'bot':
 case 'pregunta':
@@ -1521,8 +1938,49 @@ case 'formapareja5':
 case 'ruletas':
 case 'ruleta':
 case 'suerte':
-game(m, budy, command, text, pickRandom, pushname, conn, participants, sender, who, body, sendImageAsUrl)
-break
+        const { game } = require('./plugins/juegos.js');
+        game(m, budy, command, text, pickRandom, pushname, conn, participants, sender, who, body, sendImageAsUrl);
+        break;
+case 'acertijo':
+case 'adivinanza':
+  gameAcertijo(conn, m);
+  break;
+// 🎰 Casino - Ruletas y Juegos de Suerte (Apuesta con Dinero, Gana 3 EXP + Dinero)
+case 'ruleta':
+case 'ruletas':
+case 'suerte':
+case 'casino':
+    if (!global.db.data.users[m.sender]) {
+        global.db.data.users[m.sender] = { exp: 0, money: 0 }; // Inicializa EXP y Dinero si no existen
+    }
+
+    let apuesta = parseInt(args[0]);
+    if (isNaN(apuesta) || apuesta <= 0) return m.reply('❌ Ingresa una cantidad válida de dinero para apostar.');
+
+    let userMoney = global.db.data.users[m.sender].money;
+    if (apuesta > userMoney) return m.reply('❌ No tienes suficiente dinero para apostar.');
+
+    // Generar puntos para el jugador y la computadora
+    let puntosJugador = Math.floor(Math.random() * 101);
+    let puntosComputadora = Math.floor(Math.random() * 101);
+
+    // Apostar restando el dinero del jugador antes de jugar
+    global.db.data.users[m.sender].money -= apuesta;
+
+    // Evaluar el resultado del casino
+    if (puntosJugador > puntosComputadora) {
+        global.db.data.users[m.sender].exp += 3; // Solo gana 3 EXP
+        let dineroGanado = apuesta * 2; // Gana el doble de lo apostado
+        global.db.data.users[m.sender].money += dineroGanado; // Se suma el dinero ganado
+        m.reply(`💰 Casino 💰\n*Tú:* ${puntosJugador} Punto\n*Computadora:* ${puntosComputadora} Punto\n\n*Tu Ganas*\nObtienes 3 EXP y ${dineroGanado} Dinero`);
+    } else if (puntosJugador < puntosComputadora) {
+        m.reply(`💰 Casino 💰\n*Tú:* ${puntosJugador} Punto\n*Computadora:* ${puntosComputadora} Punto\n\n*Tu PIERDES*\nPerdiste ${apuesta} Dinero`);
+    } else {
+        global.db.data.users[m.sender].money += apuesta; // Devuelve el dinero en empate
+        m.reply(`💰 Casino 💰\n*Tú:* ${puntosJugador} Punto\n*Computadora:* ${puntosComputadora} Punto\n\n*Empate*\nRecuperas tu apuesta de ${apuesta} Dinero`);
+    }
+    break;
+    break
 case 'verdad':
 case 'reto':
 case 'piropo':
@@ -1562,7 +2020,54 @@ delete kuismath[m.sender.split('@')[0]]
 }
 }
 break
+			case 'casino': {
+				await gameCasinoSolo(naze, m, prefix, db)
+			}
+			break
+			case 'suitpvp': case 'suitpvp': {
+				let poin = 10
+				let poin_lose = 10
+				let timeout = 60000
+				if (Object.values(suitpvp).find(roof => roof.id.startsWith('suitpvp') && [roof.p, roof.p2].includes(m.sender))) m.reply(`Termina tu traje anterior`)
+				if (m.mentionedJid[0] === m.sender) return m.reply(`¡No puedo jugar conmigo mismo!`)
+				if (!m.mentionedJid[0]) return m.reply(`_¿A quién quieres desafiar?_\nEtiqueta a la persona..\n\nEjemplo : ${prefix}suitpvp @${owner[0]}`, m.chat, { mentions: [owner[1] + '@s.whatsapp.net'] })
+				if (Object.values(suitpvp).find(roof => roof.id.startsWith('suitpvp') && [roof.p, roof.p2].includes(m.mentionedJid[0]))) return m.reply(`La persona a la que estás desafiando está jugando con otra persona :(`)
+				let id = 'suitpvp_' + new Date() * 1
+				let caption = `_*SUIT PvP*_\n\n@${m.sender.split`@`[0]} desafío @${m.mentionedJid[0].split`@`[0]} jugar al Suit\n\nPor favor @${m.mentionedJid[0].split`@`[0]} escribir aceptar/rechazar`
+				suitpvp[id] = {
+					chat: m.reply(caption),
+					id: id,
+					p: m.sender,
+					p2: m.mentionedJid[0],
+					status: 'wait',
+					waktu: setTimeout(() => {
+						if (suitpvp[id]) m.reply(`_Waktu suit habis_`)
+						delete suitpvp[id]
+					}, 60000), poin, poin_lose, timeout
+				}
+			}
+			break
+case 'boom': {
+    if (boom[m.sender]) return m.reply('¡Aún quedan sesiones sin terminar!')
 
+    boom[m.sender] = {
+        petak: [0, 0, 0, 2, 0, 2, 0, 2, 0, 0].sort(() => Math.random() - 0.5),
+        board: ['1️⃣', '2️⃣', '3️⃣', '4️⃣', '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣', '🔟'],
+        bomb: 3,
+        lolos: 7,
+        pick: 0,
+        nyawa: ['❤️', '❤️', '❤️'],
+        waktu: setTimeout(() => {
+            if (boom[m.sender]) {
+                m.reply(`_⏳ Tiempo de ${command} agotado_`)
+                delete boom[m.sender]; // 🔥 Asegurar que la partida se borre si expira el tiempo
+            }
+        }, 160000)
+    }
+    
+    m.reply(`*💣 BOOM - ADIVINA LA BOMBA 💣*\n\n${boom[m.sender].board.join("")}\n\n¡Elige un número! ¡Y no te dejes alcanzar por una bomba!\n\n🔸 Bombas: ${boom[m.sender].bomb}\n❤️ Vidas: ${boom[m.sender].nyawa.join("")}`);
+}
+break;
 case 'ttc':
 case 'ttt':
 case 'tictactoe': {
@@ -2099,7 +2604,7 @@ description: "kontol woi",
 priceAmount1000: 99999999 * 1000,
 currencyCode: "NIO",
 retailerId: "100000",
-url: `https://whatsapp.com/channel/0029VadxAUkKLaHjPfS1vP36`,            
+url: `https://`,            
 },
 businessOwnerJid: m.sender,
 caption: "halloww", 
@@ -2725,7 +3230,7 @@ case 'infohost': {
 conn.sendMessage(m.chat, { text: lenguaje.info.text27(nna, host, dash, paypal, fb),
 contextInfo:{
 forwardedNewsletterMessageInfo: { 
-newsletterJid: '120363301598733462@newsletter', 
+newsletterJid: '120363395078160821@newsletter', 
 serverMessageId: '', 
 newsletterName: 'Sky-Ultra-Plus ☁️' },
 forwardingScore: 9999999,
@@ -3241,384 +3746,9 @@ case 'musicdltt': {
 
     } catch (e) {
         m.reply(`❌ Error: ${e.stack}\n\nNo se pudo descargar la música.`);
-    }
-    break;
-}
-    
-case 'play2':
-case 'play': {
-const yts = require('yt-search'); 
-
-if (!text || text.trim() === '') {
-return m.reply('> 𖦼 *Por favor, ingrese el nombre de una canción o un enlace de YouTube.*');
-}
-
-const query = args.join(' ');
-const yt_play = await yts(query);
-
-if (!yt_play || yt_play.all.length === 0) return m.reply('> 𖦼 No se encontraron resultados para tu búsqueda.');
-
-const firstResult = yt_play.all[0];
-const video = {
-url: firstResult.url,
-title: firstResult.title,
-thumbnail: firstResult.thumbnail || 'default-thumbnail.jpg',
-timestamp: firstResult.timestamp,
-views: firstResult.views || 'N/A' 
-};
-
-await conn.sendMessage(m.chat, {
-image: { url: video.thumbnail },
-caption: `> 𖦼 *TÍTULO:* ${video.title}  
-> 𖦼 *LINK:* ${video.url}  
-> 𖦼 *DURACIÓN:* ${video.timestamp}  
-> 𖦼 *VISTAS:* ${video.views}  
-
-> 𖦼 📥 *Seleccione una opción para continuar...*  
-> 𖦼 ⇄ㅤ   ◁ㅤ  ❚❚ㅤ   ▷ㅤ   ↻  
-
-> 𖦼 *Sígueme papu 🧑‍💻*  
-👉 https://tinyurl.com/25xfelmv`,
-footer: "> 𖦼 𝐛𝐲 𝐄𝐥𝐢𝐚𝐬𝐚𝐫𝐘𝐓 ッ",
-buttons: [
-{
-buttonId: `.video ${video.url}`, 
-buttonText: { 
-displayText: '⇣ 𝗩𝗜𝗗𝗘𝗢 ⇣' 
-}
-}, {
-buttonId: `.musica ${video.url}`, 
-buttonText: {
-displayText: "⇣ 𝗔𝗨𝗗𝗜𝗢 ⇣"
-}
-}
-],
-viewOnce: true,
-headerType: 1,
-mentions: [m.sender],
-}, { quoted: m });
-    break;
-}
-
-case 'video': { 
-    const fetch = require('node-fetch');
-
-    if (!text) return m.reply('Proporciona un enlace de YouTube válido.');
-    const url = args[0];
-
-    if (!url.includes('youtu')) return m.reply('Proporciona un enlace válido de YouTube.');
-
-    m.reply('🔄 Obteniendo información del video...');
-
-    try {
-        const infoResponse = await fetch(`https://ytdownloader.nvlgroup.my.id/info?url=${url}`);
-        const info = await infoResponse.json();
-
-        if (!info.resolutions || info.resolutions.length === 0) {
-            return m.reply('❌ No se encontraron resoluciones disponibles.');
-        }
-
-        const randomResolution = info.resolutions[Math.floor(Math.random() * info.resolutions.length)];
-        const selectedHeight = randomResolution.height;
-
-        m.reply(`🔄 Descargando el video en ${selectedHeight}p, espera...`);
-
-        const videoUrl = `https://ytdownloader.nvlgroup.my.id/download?url=${url}&resolution=${selectedHeight}`;
-
-        await conn.sendMessage(m.chat, {
-            video: { url: videoUrl },
-            caption: `✅ Aquí está tu video en ${selectedHeight}p.`,
-        }, { quoted: m });
-    } catch (e) {
-        m.reply(`❌ Error: ${e.stack}\n\nNo se pudo obtener información del video.`);
-    }
-    break;
-}
-    
-/*case 'video': {
-if (!text) return m.reply('Por favor, proporciona un enlace de YouTube válido.');
-const url = args[0];
-
-if (!url.includes('youtu')) return m.reply('Por favor, proporciona un enlace válido de YouTube.');
-
-m.reply('🔄 Descargando el video, por favor espera...');
-
-try {
-const api = `https://api.siputzx.my.id/api/d/ytmp4?url=${url}`;
-const res = await fetch(api);
-const json = await res.json();
-
-if (json.status) {
-const videoUrl = json.data.dl;
-
-await conn.sendMessage(m.chat, {
-video: { url: videoUrl },
-caption: '✅ Aquí está tu video.',
-}, { quoted: m });
-} else {
-m.reply('❌ Error al descargar el video.');
-}
-} catch (e) {
-m.reply('❌ Hubo un problema al procesar tu solicitud.');
-}
-}
-break;*/
-
-case 'musica': {
-  const fs = require('fs');
-  const path = require('path');
-  const fetch = require('node-fetch');
-  const ytdl = require('./libs/ytdl');
-  const yts = require('yt-search');
-  const botNumber = '50582340051@s.whatsapp.net';
-
-  if (!args.length || !/^https?:\/\/(www\.)?(youtube\.com|youtu\.be)/.test(args[0])) {
-    return m.reply('Por favor, ingresa un enlace de YouTube válido.');
-  }
-
-  m.reply('🔄 Descargando el audio, por favor espera...');
-  const videoUrl = args[0];
-
-  try {
-    const searchResult = await yts({ videoId: videoUrl.split('v=')[1] || videoUrl.split('/').pop() });
-    if (!searchResult || !searchResult.title || !searchResult.thumbnail) {
-      throw new Error('No se pudo obtener la información del video.');
-    }
-
-    const videoInfo = {
-      title: searchResult.title,
-      thumbnail: await (await fetch(searchResult.thumbnail)).buffer()
-    };
-
-    const ytdlResult = await ytdl(videoUrl);
-    if (ytdlResult.status !== 'success' || !ytdlResult.dl) {
-      throw new Error('No se pudo obtener el enlace de descarga.');
-    }
-
-    const tmpDir = path.join(__dirname, 'tmp');
-    if (!fs.existsSync(tmpDir)) fs.mkdirSync(tmpDir);
-
-    const filePath = path.join(tmpDir, `${Date.now()}.mp3`);
-    const response = await fetch(ytdlResult.dl);
-    const buffer = await response.buffer();
-    fs.writeFileSync(filePath, buffer);
-
-    const audioCaption = `🎵 *Título:* ${videoInfo.title}\n🔗 *Enlace:* ${videoUrl}`;
-
-    await conn.sendMessage(m.chat, {
-      audio: fs.readFileSync(filePath),
-      mimetype: 'audio/mpeg',
-      fileName: `${videoInfo.title}.mp3`,
-      caption: audioCaption,
-      thumbnail: videoInfo.thumbnail,
-      contextInfo: {
-        externalAdReply: {
-          containsAutoReply: true,
-          mediaType: 1,
-          mediaUrl: videoUrl,
-          renderLargerThumbnail: false,
-          showAdAttribution: true,
-          sourceUrl: videoUrl,
-          thumbnailUrl: searchResult.thumbnail,
-          title: videoInfo.title,
-          body: 'ᴀɴsɪ-ʙᴏᴛ/ɴᴏᴄᴛᴜʀɴᴇ'
-        },
-        forwardingScore: 9999999,
-        isForwarded: true,
-        mentionedJid: [m.sender],
-        businessMessageForwardInfo: {
-          businessOwnerJid: botNumber
-        },
-        forwardedNewsletterMessageInfo: {
-          newsletterJid: '120363296103096943@newsletter',
-          serverMessageId: null,
-          newsletterName: '𝒂𝒏𝒔𝒊-𝑩𝑶𝑻-𝑴𝑫'
-        }
-      }
-    }, { quoted: m });
-
-    fs.unlinkSync(filePath);
-  } catch (error) {
-    await m.reply('Ocurrió un error al intentar descargar el audio.');
   }
   break;
 }
-
-/*case 'musica': {
-const fetch = require('node-fetch');
-
-if (!args.length || !/^https?:\/\/(www\.)?(youtube\.com|youtu\.be)/.test(args[0])) {
-return m.reply('Por favor, ingresa un enlace de YouTube válido.');
-}
-m.reply('🔄 Descargando el audio, por favor espera...');
-const videoUrl = args[0];
-
-try {
-const apiUrl = `https://deliriussapi-oficial.vercel.app/download/ytmp4?url=${encodeURIComponent(videoUrl)}`;
-const apiResponse = await fetch(apiUrl);
-const delius = await apiResponse.json();
-if (!delius || !delius.status) throw new Error();
-const downloadUrl = delius.data.download.url;
-await conn.sendMessage(m.chat, { audio: { url: downloadUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
-} catch {
-try {
-const yt = await ytdl(videoUrl);
-const dl_url = yt.audio['128kbps']?.download();
-if (!dl_url) throw new Error();
-await conn.sendFile(m.chat, dl_url, `${videoUrl.split('v=')[1]}.mp3`, null, m, false, { mimetype: 'audio/mp4' });
-} catch {
-try {
-const axeelUrl = `https://axeel.my.id/api/download/audio?url=${encodeURIComponent(videoUrl)}`;
-const axeelResponse = await fetch(axeelUrl);
-const axeelData = await axeelResponse.json();
-if (!axeelData || !axeelData.downloads?.url) throw new Error();
-await conn.sendMessage(m.chat, { audio: { url: axeelData.downloads.url }, mimetype: 'audio/mpeg' }, { quoted: m });
-} catch {
-try {
-const siputzxUrl = `https://api.siputzx.my.id/api/d/ytmp3?url=${encodeURIComponent(videoUrl)}`;
-const siputzxResponse = await fetch(siputzxUrl);
-const siputzxData = await siputzxResponse.json();
-if (!siputzxData.status || !siputzxData.data?.dl) throw new Error();
-await conn.sendMessage(m.chat, { audio: { url: siputzxData.data.dl }, mimetype: 'audio/mpeg' }, { quoted: m });
-} catch {
-try {
-const ryzenUrl = `https://api.ryzendesu.vip/api/downloader/ytmp3?url=${encodeURIComponent(videoUrl)}`;
-const ryzenResponse = await fetch(ryzenUrl);
-const ryzenData = await ryzenResponse.json();
-if (ryzenData.status === 'tunnel' && ryzenData.url) {
-const downloadUrl = ryzenData.url;
-await conn.sendMessage(m.chat, { audio: { url: downloadUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
-} else {
-throw new Error();
-}
-} catch {
-try {
-const dorratzUrl = `https://api.dorratz.com/v2/yt-mp3?url=${encodeURIComponent(videoUrl)}`;
-await conn.sendMessage(m.chat, { audio: { url: dorratzUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
-} catch {
-try {
-const downloadUrl = await fetch9Convert(videoUrl);
-await conn.sendFile(m.chat, downloadUrl, 'audio.mp3', null, m, false, { mimetype: 'audio/mp4' });
-} catch {
-try {
-const downloadUrl = await fetchY2mate(videoUrl);
-await conn.sendFile(m.chat, downloadUrl, 'audio.mp3', null, m, false, { mimetype: 'audio/mp4' });
-} catch {
-try {
-const res = await fetch(`https://api.zenkey.my.id/api/download/ytmp3?apikey=zenkey&url=${videoUrl}`);
-const audioData = await res.json();
-if (!audioData.status || !audioData.result?.downloadUrl) throw new Error();
-await conn.sendMessage(m.chat, { audio: { url: audioData.result.downloadUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
-} catch {
-try {
-const d2 = await fetch(`https://exonity.tech/api/ytdlp2-faster?apikey=adminsepuh&url=${videoUrl}`);
-const dp = await d2.json();
-const audiop = dp.result.media.mp3;
-const fileSize = dp.result.media.mp3_size;
-if (!audiop) throw new Error();
-if (fileSize > LimitAud) {
-await conn.sendMessage(m.chat, { document: { url: audiop }, mimetype: 'audio/mp3', fileName: `${videoUrl.split('v=')[1]}.mp3` }, { quoted: m });
-} else {
-await conn.sendMessage(m.chat, { audio: { url: audiop }, mimetype: 'audio/mpeg' }, { quoted: m });
-}
-} catch {
-await m.reply('Todas las APIs fallaron. No se pudo procesar tu solicitud.');
-}
-}
-}
-}
-}
-}
-}
-}
-}
-}
-break;
-}
-*/
-/*case 'musica': {
-const fetch = require('node-fetch');
-
-if (!args.length || !/^https?:\/\/(www\.)?(youtube\.com|youtu\.be)/.test(args[0])) {
-return m.reply('Por favor, ingresa un enlace de YouTube válido.');
-}
-m.reply('🔄 Descargando el audio, por favor espera...');
-const videoUrl = args[0];
-
-try {
-const apiUrl = `https://deliriussapi-oficial.vercel.app/download/ytmp4?url=${encodeURIComponent(videoUrl)}`;
-const apiResponse = await fetch(apiUrl);
-const delius = await apiResponse.json();
-if (!delius || !delius.status) throw new Error();
-const downloadUrl = delius.data.download.url;
-await conn.sendMessage(m.chat, { audio: { url: downloadUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
-} catch {
-try {
-const yt = await ytdl(videoUrl);
-const dl_url = yt.audio['128kbps']?.download();
-if (!dl_url) throw new Error();
-await conn.sendFile(m.chat, dl_url, `${videoUrl.split('v=')[1]}.mp3`, null, m, false, { mimetype: 'audio/mp4' });
-} catch {
-try {
-const siputzxUrl = `https://api.siputzx.my.id/api/d/ytmp3?url=${encodeURIComponent(videoUrl)}`;
-const siputzxResponse = await fetch(siputzxUrl);
-const siputzxData = await siputzxResponse.json();
-if (!siputzxData.status || !siputzxData.data?.dl) throw new Error();
-await conn.sendMessage(m.chat, { audio: { url: siputzxData.data.dl }, mimetype: 'audio/mpeg' }, { quoted: m });
-} catch {
-try {
-const ryzenUrl = `https://api.ryzendesu.vip/api/downloader/ytmp3?url=${encodeURIComponent(videoUrl)}`;
-const ryzenResponse = await fetch(ryzenUrl);
-const ryzenData = await ryzenResponse.json();
-if (ryzenData.status === 'tunnel' && ryzenData.url) {
-const downloadUrl = ryzenData.url;
-await conn.sendMessage(m.chat, { audio: { url: downloadUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
-} else {
-throw new Error();
-}
-} catch {
-try {
-const dorratzUrl = `https://api.dorratz.com/v2/yt-mp3?url=${encodeURIComponent(videoUrl)}`;
-await conn.sendMessage(m.chat, { audio: { url: dorratzUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
-} catch {
-try {
-const downloadUrl = await fetch9Convert(videoUrl);
-await conn.sendFile(m.chat, downloadUrl, 'audio.mp3', null, m, false, { mimetype: 'audio/mp4' });
-} catch {
-try {
-const downloadUrl = await fetchY2mate(videoUrl);
-await conn.sendFile(m.chat, downloadUrl, 'audio.mp3', null, m, false, { mimetype: 'audio/mp4' });
-} catch {
-try {
-const res = await fetch(`https://api.zenkey.my.id/api/download/ytmp3?apikey=zenkey&url=${videoUrl}`);
-const audioData = await res.json();
-if (!audioData.status || !audioData.result?.downloadUrl) throw new Error();
-await conn.sendMessage(m.chat, { audio: { url: audioData.result.downloadUrl }, mimetype: 'audio/mpeg' }, { quoted: m });
-} catch {
-try {
-const d2 = await fetch(`https://exonity.tech/api/ytdlp2-faster?apikey=adminsepuh&url=${videoUrl}`);
-const dp = await d2.json();
-const audiop = dp.result.media.mp3;
-const fileSize = dp.result.media.mp3_size;
-if (!audiop) throw new Error();
-if (fileSize > LimitAud) {
-await conn.sendMessage(m.chat, { document: { url: audiop }, mimetype: 'audio/mp3', fileName: `${videoUrl.split('v=')[1]}.mp3` }, { quoted: m });
-} else {
-await conn.sendMessage(m.chat, { audio: { url: audiop }, mimetype: 'audio/mpeg' }, { quoted: m });
-}
-} catch {
-await m.reply('Todas las APIs fallaron. No se pudo procesar tu solicitud.');
-}
-}
-}
-}
-}
-}
-}
-}
-}
-break;
-}*/
 
 case 'tiktokserch': {
 const axios = require('axios');
@@ -4562,7 +4692,7 @@ m.reply('Ocurrió un error al consultar la API');
 }
 break;
 case 'addowner': {
-if (!isCreator) return reply(info.owner)
+if (!isCreator) return m.reply(info.owner)
 const who = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : false;
 if (!who) return conn.sendTextWithMentions(m.chat, `⚠️ Uso incorrecto del comando.*\n\n*❥ Ejemplo:* ${prefix + command} @0`);
 const nuevoNumero = who;
@@ -4572,7 +4702,7 @@ await m.reply('⚠️ *Nuevo número agregado con éxito a la lista de owners.*'
 break;
 
 case 'delowner': {
-if (!isCreator) return reply(info.owner)
+if (!isCreator) return m.reply(info.owner)
 const who = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : false;
 const numeroAEliminar = who;
 const index = global.owner.findIndex(owner => owner[0] === numeroAEliminar);
@@ -4660,7 +4790,7 @@ timeZone: 'Asia/Jakarta'
 break
 
 case 'addprem': {
-if (!isCreator) return reply(info.owner)
+if (!isCreator) return m.reply(info.owner)
 let who
 if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : false
 else who = m.chat
@@ -4676,7 +4806,7 @@ conn.sendTextWithMentions(m.chat, `[ ✅ 𝐏𝐑𝐄𝐌𝐈𝐔𝐌 ✅ ]
 break
 
 case 'delprem': {
-if (!isCreator) return reply(info.owner)
+if (!isCreator) return m.reply(info.owner)
 let who
 if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : false
 else who = text ? text.replace(/[^0-9]/g, '') + '@s.whatsapp.net' : m.chat
@@ -4690,7 +4820,7 @@ conn.sendTextWithMentions(m.chat, `@${who.split('@')[0]} Dejarte de ser un usuar
 break
 
 case 'listprem': {
-if (!isCreator) return reply(info.owner)
+if (!isCreator) return m.reply(info.owner)
 let prem = global.premium.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').filter(v => v != conn.user.jid)
 let teks = `*[ 𝐔𝐒𝐔𝐀𝐑𝐈𝐎𝐒 𝐏𝐑𝐄𝐌𝐈𝐔𝐌 ]*\n─────────────\n` + prem.map(v => '- @' + v.replace(/@.+/, '')).join`\n`
 conn.sendTextWithMentions(m.chat, teks)
@@ -4737,26 +4867,26 @@ m.reply(from)
 }
 break
 case 'getcase':
-if (!isCreator) return reply(info.owner)
+if (!isCreator) return m.reply(info.owner)
 if (!text) return m.reply(`*Que comando esta buscando o que?*`)
 try {
 bbreak = 'break'
-reply('case ' + `'${args[0]}'` + fs.readFileSync('./main.js').toString().split(`case '${args[0]}'`)[1].split(bbreak)[0] + bbreak)
+m.reply('case ' + `'${args[0]}'` + fs.readFileSync('./main.js').toString().split(`case '${args[0]}'`)[1].split(bbreak)[0] + bbreak)
 } catch (err) {
 console.error(err)
-reply(`Error, tal vez no existe el comando`)
+m.reply(`Error, tal vez no existe el comando`)
 }
 break
 case 'public':
 case 'publico': {
-if (!isCreator) return reply(info.owner)
+if (!isCreator) return m.reply(info.owner)
 conn.public = true
 m.reply(lenguaje.owner.text24)
 }
 break
 case 'self':
 case 'privado': {
-if (!isCreator) return reply(info.owner)
+if (!isCreator) return m.reply(info.owner)
 conn.public = false
 m.reply(lenguaje.owner.text25)
 }
@@ -4765,20 +4895,20 @@ case 'autoadmin':
 case 'tenerpoder': {
 if (!m.isGroup) return m.reply(info.group)
 if (!isBotAdmins) return m.reply(info.botAdmin)
-if (!isCreator) return reply(info.owner)
-reply(`${pickRandom(['Ya eres admin mi jefe 😎', '*LISTO YA ERES ADMIN MI PROPIETARIO/DESARROLLADO 😎*'])}`)
+if (!isCreator) return m.reply(info.owner)
+m.reply(`${pickRandom(['Ya eres admin mi jefe 😎', '*LISTO YA ERES ADMIN MI PROPIETARIO/DESARROLLADO 😎*'])}`)
 await conn.groupParticipantsUpdate(m.chat, [m.sender], "promote")
 }
 break
 case 'leave': {
-if (!isCreator) return reply(info.owner)
-reply(lenguaje.owner.text26)
+if (!isCreator) return m.reply(info.owner)
+m.reply(lenguaje.owner.text26)
 await delay(3 * 3000)
 await conn.groupLeave(m.chat)
 }
 break
 case 'update':
-if (!isCreator) return reply(info.owner)
+if (!isCreator) return m.reply(info.owner)
 try {
 let stdout = execSync('git pull' + (m.fromMe && q ? ' ' + q : ''))
 await m.reply(stdout.toString())
@@ -4829,9 +4959,9 @@ if (media === 'sticker')
 conn.sendFile(m.chat, e, 'sticker.webp', '', m, true, {
 contextInfo: {
 forwardedNewsletterMessageInfo: {
-newsletterJid: '120363296103096943@newsletter',
+newsletterJid: '120363395078160821@newsletter',
 serverMessageId: '',
-newsletterName: '✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨'
+newsletterName: '🛡️Ciberseguridad~Bot🛡️'
 },
 forwardingScore: 9999999,
 isForwarded: true,
@@ -4894,7 +5024,7 @@ let noetiqueta = 'https://qu.ax/lqFC.webp'
 let or = ['texto', 'sticker']; 
 let media = or[Math.floor(Math.random() * 2)]
 if (media === 'sticker')     
-conn.sendFile(m.chat, noetiqueta, 'sticker.webp', '',m, true, { contextInfo: { forwardedNewsletterMessageInfo: { newsletterJid: '120363296103096943@newsletter', serverMessageId: '', newsletterName: '✨ 𝐚𝐧𝐬í-𝐁𝐎𝐓 ✨' }, forwardingScore: 9999999, isForwarded: true, 'forwardingScore': 200, 'isForwarded': false, externalAdReply:{ showAdAttribution: false, title: 'Yo que?', mediaType: 2, sourceUrl: nna, thumbnail: imagen1}}}, { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
+conn.sendFile(m.chat, noetiqueta, 'sticker.webp', '',m, true, { contextInfo: { forwardedNewsletterMessageInfo: { newsletterJid: '120363395078160821@newsletter', serverMessageId: '', newsletterName: '🛡️Ciberseguridad~Bot🛡️' }, forwardingScore: 9999999, isForwarded: true, 'forwardingScore': 200, 'isForwarded': false, externalAdReply:{ showAdAttribution: false, title: 'Yo que?', mediaType: 2, sourceUrl: nna, thumbnail: imagen1}}}, { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})
 if (media === 'texto')
 await conn.sendMessage(m.chat, {text: `${pickRandom(['*QUE YO QUE?*', 'Que?'])}`}, {quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})}*/
 
@@ -5279,7 +5409,7 @@ conn.copyNForward(m.chat, msgs[budy.toLowerCase()], true)
 
 //--------------------[ REPORTE/ERRORS ]-----------------------     
 let e = String(err)
-conn.sendMessage("50582382653@s.whatsapp.net", {
+conn.sendMessage("573012686632@s.whatsapp.net", {
 text: "Hola Creador/desarrollador, parece haber un error, por favor arreglarlo 🥲\n\n" + util.format(e),
 contextInfo: {
 forwardingScore: 9999999,
@@ -5303,3 +5433,89 @@ console.log(chalk.redBright(`Update ${__filename}`))
 delete require.cache[file]
 require(file)
 })
+
+
+
+function findRiwayat(idtrx) {
+    const riwayatPath = './database/riwayat.json';
+    const riwayat = JSON.parse(fs.readFileSync(riwayatPath));
+    const transaction = Object.values(riwayat).find(t => t.idtrx === idtrx && t.status === "pending");
+    return transaction;
+}
+
+const idkcl = (length) => {
+    let result = '';
+    const characters = 'abcdefghijklmnopqrstuvwxyz';
+    for(let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+}
+
+const idgede = (length) => {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    for(let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+}
+
+const idnum = (length) => {
+    let result = '';
+    const characters = '1234567890';
+    for(let i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    return result;
+}
+
+function toRupiah(angka) {
+    var saldo = "";
+    var angkarev = angka.toString().split("").reverse().join("");
+    for(var i = 0; i < angkarev.length; i++)
+        if(i % 3 == 0) saldo += angkarev.substr(i, 3) + ".";
+    return "Rp. " + saldo.split("", saldo.length - 1).reverse().join("");
+}
+
+
+
+function updatePopularCommand(command) {
+    console.log("🔵 Se ejecutó el comando:", command);
+}
+
+
+
+const userFirePath = './database/userFire.json';
+
+function loadUserFire() {
+    if (!fs.existsSync(userFirePath)) {
+        fs.writeFileSync(userFirePath, JSON.stringify({}));
+    }
+    return JSON.parse(fs.readFileSync(userFirePath));
+}
+
+function saveUserFire(db) {
+    fs.writeFileSync(userFirePath, JSON.stringify(db, null, 2));
+}
+
+const firely = (m, teks) => {
+    const db = loadUserFire();
+    const sender = m.sender;
+
+    // Si el usuario no está registrado, asignar un límite predeterminado
+    if (!db[sender]) {
+        db[sender] = { limit: 100 };
+        saveUserFire(db);
+    }
+
+    // Verificar si el usuario tiene límite suficiente
+    if (db[sender].limit <= 0) {
+        m.reply("❌ Has alcanzado tu límite de comandos.");
+        return false;
+    }
+
+    db[sender].limit -= 1;
+    saveUserFire(db);
+    return true;
+};
