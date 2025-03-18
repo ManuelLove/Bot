@@ -1,16 +1,16 @@
 //COMANDO PARA GRUPOS
 require('../main.js') 
-const fs = require("fs")
-const { smsg, fetchBuffer, getBuffer, buffergif, getGroupAdmins, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, jsonformat, delay, format, logic, generateProfilePicture, parseMention, getRandom, msToTime, downloadMediaMessage, convertirMsADiasHorasMinutosSegundos, pickRandom, getUserBio, asyncgetUserProfilePic} = require('../libs/fuctions') 
-const path = require("path")
-const chalk = require("chalk");
-const moment = require('moment-timezone') 
-const gradient = require('gradient-string') 
-const fetch = require('node-fetch') 
-const axios = require('axios')
-const cheerio = require('cheerio')
-const Jimp = require('jimp')
-const os = require('os')
+let fs = require("fs")
+let { smsg, fetchBuffer, getBuffer, buffergif, getGroupAdmins, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, jsonformat, delay, format, logic, generateProfilePicture, parseMention, getRandom, msToTime, downloadMediaMessage, convertirMsADiasHorasMinutosSegundos, pickRandom, getUserBio, asyncgetUserProfilePic} = require('../libs/fuctions') 
+let path = require("path")
+let chalk = require("chalk");
+let moment = require('moment-timezone') 
+let gradient = require('gradient-string') 
+let fetch = require('node-fetch') 
+let axios = require('axios')
+let cheerio = require('cheerio')
+let Jimp = require('jimp')
+let os = require('os')
 require('../main')
 
 async function grupo(m, command, isGroupAdmins, text, conn, participants, isBotAdmins, args, isCreator, delay, sender, quoted, mime, from, isCreator, groupMetadata, fkontak, delay, store, chats) {
@@ -73,7 +73,7 @@ await delay(3 * 3000)
 let res = await conn.groupAcceptInvite(code).then((code) => m.reply(jsonformat(code))).catch((err) => m.reply(jsonformat(err)))
 //await conn.groupAcceptInvite(code)
 } else {
-const data = global.owner.filter(([number, _, isDeveloper]) => isDeveloper && number)
+let data = global.owner.filter(([number, _, isDeveloper]) => isDeveloper && number)
 await delay(2 * 2000)
 m.reply(lenguaje.grupos.text7)
 await delay(3 * 3000)
@@ -137,11 +137,11 @@ if (command == 'kick' || command == 'echar' || command == 'sacar') {
 if (!m.isGroup) return m.reply(info.group) 
 if (!isBotAdmins) return m.reply(info.botAdmin)
 if (!isGroupAdmins) return m.reply(info.admin)
-const kicktext = `${lenguaje.grupos.text16}`;
+let kicktext = `${lenguaje.grupos.text16}`;
 if (!m.mentionedJid[0] && !m.quoted) return m.reply(kicktext, m.chat, {mentions: conn.parseMention(kicktext)});
 if (m.mentionedJid.includes(conn.user.jid)) return;
-const user = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted.sender;
-const owr = m.chat.split`-`[0];
+let user = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted.sender;
+let owr = m.chat.split`-`[0];
 await conn.groupParticipantsUpdate(m.chat, [user], 'remove')}
 
 if (command == 'promote' || command == 'darpoder') {
@@ -181,8 +181,8 @@ conn.sendButton(m.chat, lenguaje.grupos.text20, wm, null, [['Activar', '.banchat
 if (command == 'tagall' || command == 'invocar' || command == 'todos') {
 if (!m.isGroup) return m.reply(info.group) 
 if (!isGroupAdmins) return m.reply(info.admin)
-const pesan = args.join` `;
-const oi = `${lenguaje.grupos.text21} ${pesan}`;
+let pesan = args.join` `;
+let oi = `${lenguaje.grupos.text21} ${pesan}`;
 let teks = `❑ ━〔 *📢 ＩＮＶＯＣＡＣＩＯＮ 📢* 〕━ ❑\n\n`
 teks += `${oi}\n\n`
 for (let mem of participants) {
@@ -192,23 +192,23 @@ conn.sendMessage(m.chat, { text: teks, mentions: participants.map(a => a.id) }, 
 
 if (command == 'admins' || command == 'administradores') {
 if (!m.isGroup) return m.reply(info.group);  
-const pp = await conn.profilePictureUrl(m.chat, 'image').catch((_) => null) || './src/admins.jpg';
-const groupAdmins = participants.filter((p) => p.admin);
-const listAdmin = groupAdmins.map((v, i) => `${i + 1}. @${v.id.split('@')[0]}`).join('\n➥ ');
-const owner = groupMetadata.owner || groupAdmins.find((p) => p.admin === 'superadmin')?.id || m.chat.split`-`[0] + '@s.whatsapp.net';
-const pesan = args.join` `;
-const oi = `${lenguaje.grupos.text21} ${pesan}`;
-const text = `═✪〘 **ＩＮＶＯＣＡＮＤＯ ＡＤＭＩＮＳ* 〙✪═\n\n• *ɢʀᴜᴘᴏ:* [ ${groupMetadata.subject} ]\n\n• ${oi}\n\n• *ᴀᴅᴍɪɴs:*\n➥ ${listAdmin}\n\n${lenguaje.grupos.text22}`.trim(); 
+let pp = await conn.profilePictureUrl(m.chat, 'image').catch((_) => null) || './src/admins.jpg';
+let groupAdmins = participants.filter((p) => p.admin);
+let listAdmin = groupAdmins.map((v, i) => `${i + 1}. @${v.id.split('@')[0]}`).join('\n➥ ');
+let owner = groupMetadata.owner || groupAdmins.find((p) => p.admin === 'superadmin')?.id || m.chat.split`-`[0] + '@s.whatsapp.net';
+let pesan = args.join` `;
+let oi = `${lenguaje.grupos.text21} ${pesan}`;
+let text = `═✪〘 **ＩＮＶＯＣＡＮＤＯ ＡＤＭＩＮＳ* 〙✪═\n\n• *ɢʀᴜᴘᴏ:* [ ${groupMetadata.subject} ]\n\n• ${oi}\n\n• *ᴀᴅᴍɪɴs:*\n➥ ${listAdmin}\n\n${lenguaje.grupos.text22}`.trim(); 
 conn.sendMessage(m.chat, { text: text, mentions: participants.map(a => a.id) }, { quoted: m, ephemeralExpiration: 24*60*100, disappearingMessagesInChat: 24*60*100})}
 
 if (command == 'infogrupo' || command == 'groupinfo') {
 if (!m.isGroup) return m.reply(info.group);  
-const pp = await conn.profilePictureUrl(m.chat, 'image').catch((_) => null) || './src/avatar_contact.png';
-const {welcome, antilink, antiFake, antiArabe, detect, autosticker, antiNsfw, modeadmin} = global.db.data.chats[m.chat];
-const groupAdmins = participants.filter((p) => p.admin);
-const listAdmin = groupAdmins.map((v, i) => `${i + 1} @${v.id.split('@')[0]}`).join('\n ');
-const owner = groupMetadata.owner || groupAdmins.find((p) => p.admin === 'superadmin')?.id || m.chat.split`-`[0] + '@s.whatsapp.net';
-const text = `╭━━[ .⋅ ${lenguaje.grupos.text23} ⋅]━━━⬣ 
+let pp = await conn.profilePictureUrl(m.chat, 'image').catch((_) => null) || './src/avatar_contact.png';
+let {welcome, antilink, antiFake, antiArabe, detect, autosticker, antiNsfw, modeadmin} = global.db.data.chats[m.chat];
+let groupAdmins = participants.filter((p) => p.admin);
+let listAdmin = groupAdmins.map((v, i) => `${i + 1} @${v.id.split('@')[0]}`).join('\n ');
+let owner = groupMetadata.owner || groupAdmins.find((p) => p.admin === 'superadmin')?.id || m.chat.split`-`[0] + '@s.whatsapp.net';
+let text = `╭━━[ .⋅ ${lenguaje.grupos.text23} ⋅]━━━⬣ 
 *🔸️ ɪᴅ:*
 • ${groupMetadata.id}
 
@@ -294,11 +294,11 @@ m.reply(`${lenguaje.grupos.text41} *${warn - 1}*`, who)
 m.reply(lenguaje.grupos.text42)}}
 
 if (command == 'listwarn') {
-const adv = Object.entries(global.db.data.users).filter((user) => user[1].warn);
-const warns = global.db.data.users.warn;
-const user = global.db.data.users;
-const imagewarn = './src/warn.jpg';
-const caption = `${lenguaje.grupos.text32}\n 
+let adv = Object.entries(global.db.data.users).filter((user) => user[1].warn);
+let warns = global.db.data.users.warn;
+let user = global.db.data.users;
+let imagewarn = './src/warn.jpg';
+let caption = `${lenguaje.grupos.text32}\n 
 ╔═══════════════════·•
 ║ '*𝚃𝚘𝚝𝚊𝚕 :* ${adv.length} ${lenguaje.grupos.text33} ${adv ? '\n' + adv.map(([jid, user], i) => `
 ║
@@ -313,17 +313,17 @@ let online = [...Object.keys(store.presences[id]), numBot]
 conn.sendText(m.chat, '*Lista de activos | online:*\n\n' + online.map(v => '❑ @' + v.replace(/@.+/, '')).join`\n`, m, { mentions: online })}
 
 if (command == 'fantasmas' || command == 'fantasma') {
-const { areJidsSameUser } = require('@whiskeysockets/baileys') 
-const member = participants.map((u) => u.id);
+let { areJidsSameUser } = require('@whiskeysockets/baileys') 
+let member = participants.map((u) => u.id);
 if (!text) {
 var sum = member.length;
 } else {
 var sum = text;
 }
 let total = 0;
-const sider = [];
+let sider = [];
 for (let i = 0; i < sum; i++) {
-const users = m.isGroup ? participants.find((u) => u.id == member[i]) : {};
+let users = m.isGroup ? participants.find((u) => u.id == member[i]) : {};
 if ((typeof global.db.data.users[member[i]] == 'undefined' || global.db.data.users[member[i]].chat == 0) && !users.isAdmin && !users.isSuperAdmin) {
 if (typeof global.db.data.users[member[i]] !== 'undefined') {
 if (global.db.data.users[member[i]].whitelist == false) {
